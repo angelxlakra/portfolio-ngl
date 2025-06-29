@@ -11,9 +11,16 @@ const AnimatedNavLink = ({
 }: {
   href: string;
   text: string;
-  color: string;
+  color: "blue" | "green" | "red" | "orange";
 }) => {
   const [isHovered, setIsHovered] = useState(false);
+
+  const colorVariants = {
+    blue: "text-blue-600",
+    red: "text-red-600",
+    green: "text-green-600",
+    orange: "text-orange-600",
+  };
 
   return (
     <motion.div
@@ -27,7 +34,7 @@ const AnimatedNavLink = ({
         <motion.h3 className="text-2xl relative z-10 text-slate-300/100">
           <span>{text} </span>
           <motion.span
-            className={`text-[24.4px] absolute text-green-600`}
+            className={`text-[24.4px] absolute ${colorVariants[color]}`}
             initial={{ opacity: 0, x: 0, y: 0 }}
             variants={{
               noHover: { opacity: 0, top: 0, left: 0 },

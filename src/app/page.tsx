@@ -79,13 +79,9 @@ const Page = () => {
               className="flex flex-col justify-center items-center bg-transparent  h-[750px] w-[750px]  rounded-full  relative"
             >
               <div className="flex justify-center font-bold text-xl gap-x-6 mb-10 uppercase text-slate-300">
-                <AnimatedNavLink href="#work" text="Work" color="red-600" />
-                <AnimatedNavLink href="#about" text="about" color="green-600" />
-                <AnimatedNavLink
-                  href="#contact"
-                  text="contact"
-                  color="blue-600"
-                />
+                <AnimatedNavLink href="#work" text="Work" color="red" />
+                <AnimatedNavLink href="#about" text="about" color="green" />
+                <AnimatedNavLink href="#contact" text="contact" color="blue" />
               </div>
               <div className="text-6xl text-slate-500 font-bold">
                 <h1>
