@@ -1,103 +1,179 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import Starfield from "@/components/starfield";
+import React from "react";
+import { easeInOut, motion } from "motion/react";
+import AnimatedNavLink from "@/components/AnimatedNavLink";
+
+const Page = () => {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
+    <div className="relative">
+      <div className="h-[100vh] w-[100vw] overflow-hidden relative">
+        <Starfield
+          style={{
+            background: "#002",
+          }}
         />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      </div>
+      <div className="z-10 absolute top-0 left-0">
+        <div className="w-[100vw] h-[100vh] flex justify-center items-center ">
+          <div className="relative h-[750px] w-[750px]">
+            <svg
+              className="absolute inset-0 w-full h-full"
+              viewBox="0 0 750 750"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <motion.circle
+                cx="375"
+                cy="375"
+                r="370"
+                fill="none"
+                stroke="rgba(148, 163, 184, 0.1)"
+                strokeWidth="2"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 6, delay: 0.5 }}
+              />
+              <motion.circle
+                cx="375"
+                cy="375"
+                r="370"
+                fill="none"
+                stroke="#94a3b8"
+                strokeWidth={5}
+                strokeLinecap="round"
+                initial={{ pathLength: 0, opacity: 0 }}
+                animate={{ pathLength: 1, opacity: 1 }}
+                transition={{
+                  pathLength: { duration: 5, ease: easeInOut, delay: 0.5 },
+                  opacity: { duration: 1, delay: 0.5 },
+                }}
+              />
+              <motion.circle
+                cx="375"
+                cy="375"
+                r="370"
+                fill="none"
+                stroke="#94a3b8"
+                strokeWidth="1"
+                strokeOpacity="0.8"
+                initial={{ scale: 1, opacity: 0 }}
+                animate={{
+                  scale: [1, 1.1, 1],
+                  opacity: [0, 0.8, 0],
+                }}
+                transition={{
+                  duration: 4,
+                  repeat: Infinity,
+                  ease: easeInOut,
+                  delay: 2,
+                }}
+              />
+            </svg>
+            <motion.div
+              animate={{ background: "rgba(98, 116, 142, 0.2)" }}
+              transition={{
+                delay: 5.5,
+                duration: 3,
+              }}
+              className="flex flex-col justify-center items-center bg-transparent  h-[750px] w-[750px]  rounded-full  relative"
+            >
+              <div className="flex justify-center font-bold text-xl gap-x-6 mb-10 uppercase text-slate-300">
+                <AnimatedNavLink href="#work" text="Work" color="red-600" />
+                <AnimatedNavLink href="#about" text="about" color="green-600" />
+                <AnimatedNavLink
+                  href="#contact"
+                  text="contact"
+                  color="blue-600"
+                />
+              </div>
+              <div className="text-6xl text-slate-500 font-bold">
+                <h1>
+                  <motion.span
+                    initial={{
+                      opacity: 0,
+                      scale: 1.5,
+                      x: 0,
+                      y: 0,
+                      position: "absolute",
+                      left: "50%",
+                      top: "50%",
+                      translateX: "-50%",
+                      translateY: "-50%",
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: 0,
+                      y: 0,
+                      position: "static",
+                      left: "auto",
+                      top: "auto",
+                      translateX: "0%",
+                      translateY: "0%",
+                    }}
+                    transition={{ ease: easeInOut, duration: 1 }}
+                    className="text-slate-200"
+                  >
+                    Hi.
+                  </motion.span>{" "}
+                  <motion.span
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ duration: 1, delay: 1 }}
+                  >
+                    I&apos;m{" "}
+                  </motion.span>
+                  <motion.span
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ duration: 1, delay: 1.5 }}
+                    className="relative inline-block text-slate-200"
+                  >
+                    <span className="relative">Angel </span>
+                    <span className="text-[60.8px] absolute top-[3px] left-[2px] w-[500px] text-purple-600">
+                      Angel
+                    </span>
+                  </motion.span>{" "}
+                  <motion.span
+                    animate={{ opacity: 1 }}
+                    initial={{ opacity: 0 }}
+                    transition={{ duration: 1, delay: 2 }}
+                    className="relative inline-block text-slate-200"
+                  >
+                    <span className="relative"> Lakra!</span>
+                    <span className="text-[60.8px] absolute top-[3px] left-[2px] w-[500px] text-purple-600">
+                      Lakra!
+                    </span>
+                  </motion.span>
+                </h1>
+                <motion.h1
+                  animate={{ opacity: 1 }}
+                  initial={{ opacity: 0 }}
+                  transition={{ duration: 1, delay: 4 }}
+                  className="text-5xl text-center text-slate-300"
+                >
+                  <span className="relative inline-block text-slate-200">
+                    <span>Software </span>
+                    <span className="text-[49px] absolute top-[2px] left-[1px] text-orange-600">
+                      Software
+                    </span>
+                  </span>{" "}
+                  <span className="relative inline-block text-slate-200">
+                    <span>Developer</span>
+                    <span className="text-[49px] absolute top-[2px] left-[1px] text-yellow-500">
+                      Developer.
+                    </span>
+                  </span>
+                </motion.h1>
+              </div>
+              <div className="opacity-0 mt-10">Dummy</div>
+            </motion.div>
+          </div>
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </div>
     </div>
   );
-}
+};
+
+export default Page;

@@ -1,26 +1,91 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&family=Passion+One:wght@400;700;900&display=swap');
 @import "tailwindcss";
 
 :root {
   --background: #ffffff;
   --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-fraunces: var(--font-fraunces);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Merriweather", serif, Helvetica, sans-serif;
+}
+
+/* Fraunces font utility classes */
+.font-fraunces {
+  font-family: var(--font-fraunces), serif;
+}
+
+.font-fraunces-light {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 400;
+}
+
+.font-fraunces-medium {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+}
+
+.font-fraunces-semibold {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 600;
+}
+
+.font-fraunces-bold {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 700;
+}
+
+.font-fraunces-extrabold {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 800;
+}
+
+.font-fraunces-black {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 900;
+}
+
+/* Fraunces italic utility classes */
+.font-fraunces-italic {
+  font-family: var(--font-fraunces), serif;
+  font-style: italic;
+}
+
+.font-fraunces-light-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.font-fraunces-medium-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 500;
+  font-style: italic;
+}
+
+.font-fraunces-semibold-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 600;
+  font-style: italic;
+}
+
+.font-fraunces-bold-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 700;
+  font-style: italic;
+}
+
+.font-fraunces-extrabold-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 800;
+  font-style: italic;
+}
+
+.font-fraunces-black-italic {
+  font-family: var(--font-fraunces), serif;
+  font-weight: 900;
+  font-style: italic;
 }
