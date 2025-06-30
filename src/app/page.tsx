@@ -2,7 +2,7 @@
 
 import Starfield from "@/components/starfield";
 import React from "react";
-import { easeIn, easeInOut, easeOut, motion } from "motion/react";
+import { easeInOut, easeOut, motion } from "motion/react";
 import AnimatedNavLink from "@/components/AnimatedNavLink";
 import Image from "next/image";
 
