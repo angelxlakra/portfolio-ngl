@@ -31,7 +31,7 @@ const AnimatedNavLink = ({
       transition={{ duration: 0.2 }}
     >
       <Link href={href}>
-        <motion.h3 className="text-2xl relative z-10 text-slate-300/100">
+        <motion.h3 className="text-2xl relative z-10 text-slate-600/100">
           <span>{text} </span>
           <motion.span
             className={`text-[24.4px] absolute ${colorVariants[color]}`}

@@ -4,6 +4,7 @@
  */
 
 import { calcDiagonal, randomIntFromInterval } from "./utils";
+import gsap from "gsap";
 
 export default class Star {
   // Current x position of the star (screen space coordinates)
@@ -28,6 +29,10 @@ export default class Star {
   vx: number;
   // Current diagonal distance from center (used for movement)
   cd: number;
+  // Opacity of the star
+  opacity: number;
+  // Scale of the star
+  scale: number;
 
   /**
    * Creates a new star particle
@@ -61,6 +66,11 @@ export default class Star {
     this.cd = cd;
     // Initialize unprojected diagonal (distance from center for trail start)
     this.ud = cd;
+    this.opacity = 0;
+    this.scale = 0;
+
+    gsap.to(this, { opacity: 1, duration: 3, ease: "power2.out", delay: 9 });
+    gsap.to(this, { scale: 1, duration: 2, ease: "back.out(2)", delay: 9 });
   }
 
   /**
@@ -81,11 +91,26 @@ export default class Star {
       const ux = Math.floor(vanishingPoint.x + this.ux);
       const uy = Math.floor(vanishingPoint.y + this.uy);
 
+      const maxDistance = calcDiagonal(this.bounds.width, this.bounds.height);
+
+      const distance = calcDiagonal(this.x, this.y);
+
+      const normalizedDistance = distance / maxDistance;
+
+      ctx.save();
+      ctx.globalAlpha = this.opacity;
       // Draw the star as a filled white circle
       ctx?.beginPath();
       ctx.fillStyle = "white";
       // Size varies with velocity - faster stars appear larger (depth effect)
-      ctx?.arc(x, y, this.radius * this.vx * 0.2, 0, Math.PI * 2, false);
+      ctx?.arc(
+        x,
+        y,
+        this.radius + normalizedDistance * 1.5 * this.scale,
+        0,
+        Math.PI * 2,
+        false
+      );
       ctx?.fill();
       ctx?.closePath();
 
@@ -97,6 +122,8 @@ export default class Star {
       ctx.lineTo(ux, uy); // End at unprojected position
       ctx.stroke();
       ctx.closePath();
+
+      ctx.restore();
     }
   }
 
@@ -129,6 +156,10 @@ export default class Star {
       this.cd = calcDiagonal(this.x, this.y);
       // Reset trail start distance
       this.ud = this.cd;
+      this.opacity = 0;
+      this.scale = 0;
+
+      gsap.to(this, { opacity: 1, scale: 1, duration: 3, ease: "power2.out" });
     } else {
       // Calculate the distance from the center (hypotenuse)
       const h = calcDiagonal(this.x, this.y);

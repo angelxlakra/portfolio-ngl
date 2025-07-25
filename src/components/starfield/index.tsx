@@ -10,10 +10,12 @@ const clamp = (value: number, min: number, max: number) =>
 const Starfield = ({
   style = {},
   size = 400,
+  animateStars = false,
   ...rest
 }: {
   style?: object;
   size?: number;
+  animateStars?: boolean;
 }) => {
   const [bounds, setBounds] = useState({
     width: typeof window !== "undefined" ? window.innerWidth + 1000 : 2520,
@@ -105,41 +107,59 @@ const Starfield = ({
         const ctx = canvas.getContext("2d");
         if (ctx) {
           ctx.clearRect(0, 0, canvas.width, canvas.height);
-          // Smoothly move vanishing point toward mouse
-          vanishingRef.current.x = lerp(
-            vanishingRef.current.x,
-            mouseRef.current.x,
-            0.1
-          );
-          vanishingRef.current.y = lerp(
-            vanishingRef.current.y,
-            mouseRef.current.y,
-            0.1
-          );
-          const marginX = bounds.width * 0.15; // 15% margin on each side
-          const marginY = bounds.height * 0.15;
-          vanishingRef.current.x = clamp(
-            vanishingRef.current.x,
-            marginX,
-            bounds.width - marginX
-          );
-          vanishingRef.current.y = clamp(
-            vanishingRef.current.y,
-            marginY,
-            bounds.height - marginY
-          );
-          starsRef.current.forEach((star) => star.update(vanishingRef.current));
+
+          // Only update vanishing point if animation is enabled
+          if (animateStars) {
+            // Smoothly move vanishing point toward mouse
+            vanishingRef.current.x = lerp(
+              vanishingRef.current.x,
+              mouseRef.current.x,
+              0.1
+            );
+            vanishingRef.current.y = lerp(
+              vanishingRef.current.y,
+              mouseRef.current.y,
+              0.1
+            );
+            const marginX = bounds.width * 0.15; // 15% margin on each side
+            const marginY = bounds.height * 0.15;
+            vanishingRef.current.x = clamp(
+              vanishingRef.current.x,
+              marginX,
+              bounds.width - marginX
+            );
+            vanishingRef.current.y = clamp(
+              vanishingRef.current.y,
+              marginY,
+              bounds.height - marginY
+            );
+          } else {
+            // If not animating, keep vanishing point centered
+            vanishingRef.current = {
+              x: bounds.width / 2,
+              y: bounds.height / 2,
+            };
+          }
+
+          // Draw stars - either with animation or static
+          starsRef.current.forEach((star) => {
+            if (animateStars) {
+              star.update(vanishingRef.current);
+            } else {
+              star.draw(vanishingRef.current);
+            }
+          });
         }
       }
       animationFrameId = requestAnimationFrame(animate);
     };
     animate();
     return () => cancelAnimationFrame(animationFrameId);
-  }, [bounds]);
+  }, [bounds, animateStars]);
 
   return (
     <div style={{ overflow: "hidden", height: "300vh", ...style }} {...rest}>
-      <canvas ref={canvasRef} />
+      <canvas ref={canvasRef} className="starCanvas" />
     </div>
   );
 };

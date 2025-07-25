@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Merriweather, Fraunces } from "next/font/google";
 import "./globals.css";
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -37,6 +39,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  gsap.registerPlugin(useGSAP);
   return (
     <html lang="en">
       <body
