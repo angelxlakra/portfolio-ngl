@@ -117,16 +117,16 @@ export function startStarfield(canvas: HTMLCanvasElement, options: StarfieldOpti
     })
 
     // Debounce function to prevent rapid wheel events
-    function debounce(func: Function, wait: number) {
+    function debounce<T extends (...args: any[]) => void>(func: T, wait: number): T {
         let timeout: ReturnType<typeof setTimeout>;
-        return function executedFunction(...args: any[]) {
+        return function executedFunction(...args: Parameters<T>) {
             const later = () => {
                 clearTimeout(timeout);
                 func(...args);
             };
             clearTimeout(timeout);
             timeout = setTimeout(later, wait);
-        };
+        } as T;
     }
 
     const handleWheel = debounce((e: WheelEvent) => {
